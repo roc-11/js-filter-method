@@ -21,6 +21,12 @@ const people = [
   },
 ];
 
+let overTwentyOne = people.filter(person => person.age >= 21);
+console.log(overTwentyOne);
+
+const paul = people.filter(p => p.name == 'Paul')[0];
+console.log(paul);
+
 
 // Complex Filtering
 const students = [
@@ -55,3 +61,32 @@ const students = [
     ]
   },
 ];
+
+// we want to get any student who has 5 years or more experience
+// in any coding language (skills) for a job interview
+const candidates = students.filter(student => {
+    let strongSkills = student.skills.filter(skill => skill.yrsExperience >= 5);
+    return strongSkills.length > 0;
+});
+
+console.log(candidates);
+
+// would actually be better to define the function outside of the method 
+// in this more complex case 
+// It is easier to read this!!!
+
+const hasStrongSkills = student => {
+    let strongSkills = student.skills.filter(skill => skill.yrsExperience >= 5);
+    return strongSkills.length > 0;
+}
+
+const candidates2 = students.filter(hasStrongSkills);
+console.log(candidates2);
+
+// or even more verbose 
+
+const has5YearsExp = skill => skill.yrsExperience >= 5;
+const hasStrongSkills2 = student => student.skills.filter(has5YearsExp).length > 0;
+// only want candidates names 
+const candidates3 = students.filter(hasStrongSkills2).map(p => p.name);
+console.log(candidates3);
